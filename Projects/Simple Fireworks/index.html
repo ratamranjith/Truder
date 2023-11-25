@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sky Shot</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Set up scene
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Set up renderer
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Create particle system
+    const particles = new THREE.Group();
+    scene.add(particles);
+
+    /*function getRandomColor() {
+      return Math.random() * 0xffffff;
+    }*/
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function createFirework() {
+      const particleGeometry = new THREE.CircleGeometry(0.05, 5);
+      const particleMaterial = new THREE.MeshBasicMaterial({ color: getRandomColor() });
+
+      const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+      particle.position.x = (Math.random() - 0.5) * 20;
+      particle.position.y = (Math.random() - 0.5) * 10;
+      particle.position.z = (Math.random() - 0.5) * 10;
+      particles.add(particle);
+
+      // Animate particle explosion
+      const targetPosition = {
+        x: (Math.random() - 0.5) * 5,
+        y: (Math.random() - 0.5) * 25,
+        z: (Math.random() - 0.5) * 25
+      };
+
+      const tween = new TWEEN.Tween(particle.position)
+        .to(targetPosition, 50)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onComplete(() => {
+          particles.remove(particle);
+        })
+        .start();
+    }
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      TWEEN.update();
+      renderer.render(scene, camera);
+    }
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Fire a firework every second
+    setInterval(createFirework, 5);
+
+    // Start the animation loop
+    animate();
+  </script>
+</body>
+</html>
