@@ -1,2 +1,2 @@
-# Truder.github.io
+# Truder
 Personal Site to Showcase my skills
