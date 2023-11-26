@@ -14,9 +14,10 @@
             margin-left: 30%;
             margin-right: 20%;
             margin-top: 5%;
-            border-width: 20px;
+            border-width: 10px;
             border-style: dashed;
             border-color: blueviolet;
+            border-radius: 15px;
         }
         .blk{
             width: 100px;
@@ -31,9 +32,23 @@
         body{
              background: #222831;
         }
+        @media all{
+            h1{
+            font-family: "sans-serif";
+            color: bisque;
+            }
+        }
     </style>
+<script >
+
+    function modifyBoard(){
+
+    }
+
+</script>
 </head>
 <body>
+    <h1>ChessBoard Design</h1>
     <div id="container">
         <div class="blk"></div>
         <div class="whit"></div>
@@ -101,6 +116,5 @@
         <div class="blk"></div>
 
     </div>
-    
 </body>
 </html>
