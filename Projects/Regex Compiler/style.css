@@ -47,3 +47,34 @@ button {
 .input-text{
     height: 250px;
 }
+
+/* Add these styles at the end of the existing CSS file */
+
+.land {
+    background: url('land.jpg') bottom center no-repeat;
+    background-size: cover;
+    height: 100vh;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+  
+  .water {
+    background: linear-gradient(to right, #87CEEB, #4682B4);
+    height: 100vh;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+  
+  .fire {
+    background: url('fire.jpg') top center no-repeat;
+    background-size: cover;
+    height: 100vh;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
+
+        canvas {
+            display: block;
+            z-index: -1; /* Ensure the canvas is behind the menu bar */
+        }
+
+        #menuToggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+        }
+
+        #menuToggle div {
+            width: 30px;
+            height: 4px;
+            background: white;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        #menuToggle.open div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        #menuToggle.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menuToggle.open div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        #menuBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        #menuBar a {
+            color: rgb(107, 7, 238);
+            text-decoration: none;
+            padding: 40px;
+            font-weight: bold;
+            font-size: 32px;
+            opacity: 1;
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+
+        #menuBar a:hover {
+            transform: translateY(-5px) rotateX(20deg); /* Adjust the rotation and translation values as needed */
+            color: aquamarine;
+        }
+
+        #menuToggle.open + #menuBar {
+            transform: translateX(0);
+        }
+    </style>
+    <title>Space Animation</title>
+</head>
+<body>
+
+    <button id="menuToggle">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
+    
+    <div id="menuBar">
+        <a href="#">Home</a>
+        <a href="#">Projects</a>
+        <a href="#">Experience</a>
+        <a href="#">Contact</a>
+    </div>
+    <canvas id="spaceCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('spaceCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        const planets = [];
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function drawStar(x, y, radius, color, glow) {
+            ctx.shadowColor = color;
+            ctx.shadowBlur = glow;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.closePath();
+            ctx.shadowColor = null;
+            ctx.shadowBlur = null;
+        }
+
+        function drawRotatingPlanet(x, y, radius, img, rotation) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
+            ctx.drawImage(img, -radius, -radius, radius * 2, radius * 2);
+            ctx.restore();
+        }
+
+        function createStars() {
+            for (let i = 0; i < 1000; i++) {
+                const x = randomRange(0, canvas.width);
+                const y = randomRange(0, canvas.height);
+                let radius = Math.random() * 0.5;
+                const glow = Math.random() * 10;
+
+                let color = 'white';
+
+                if (Math.random() < 0.02) {
+                    color = 'lightgreen';
+                    radius += 1; // Larger yellow star
+                } else if (Math.random() < 0.03) {
+                    color = 'steelblue';
+                    radius += 1; // Larger steel blue star
+                }
+
+                stars.push({ x, y, radius, color, glow });
+            }
+        }
+
+        function createPlanets() {
+            const planetImages = [
+            '/Projects/LandingPages/images/planet1.png', // Replace with your image URL for planet 1
+            '/Projects/LandingPages/images/planet2.png', // Replace with your image URL for planet 2
+            '/Projects/LandingPages/images/planet3.png', // Replace with your image URL for planet 3
+                // Add more image URLs for additional planets
+            ];
+
+            for (let i = 0; i < 4; i++) {
+                const x = randomRange(0, canvas.width);
+                const y = randomRange(0, canvas.height);
+                const radius = randomRange(3, 15);
+                const rotationSpeed = randomRange(0.005, 0.02);
+                const initialRotation = randomRange(0, Math.PI * 2) * (i % 2 === 0 ? 1 : -1);
+
+                const img = new Image();
+                img.src = planetImages[i % planetImages.length];
+
+                planets.push({ x, y, radius, img, rotation: initialRotation, rotationSpeed });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach(star => {
+                drawStar(star.x, star.y, star.radius, star.color, star.glow);
+                star.glow += 0.05;
+
+                if (star.glow > 20) {
+                    star.glow = 0;
+                    star.x = randomRange(0, canvas.width);
+                    star.y = randomRange(0, canvas.height);
+                }
+            });
+
+            planets.forEach(planet => {
+                planet.rotation += planet.rotationSpeed;
+
+                drawRotatingPlanet(planet.x, planet.y, planet.radius, planet.img, planet.rotation);
+
+                planet.x += 0.5;
+
+                if (planet.x - planet.radius > canvas.width) {
+                    planet.x = -planet.radius;
+                    planet.y = randomRange(0, canvas.height);
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        createStars();
+        createPlanets();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener('wheel', (event) => {
+            zoomLevel += event.deltaY * -0.01;
+            zoomLevel = Math.max(0.1, Math.min(zoomLevel, 3));
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            const dx = (event.clientX / window.innerWidth - 0.5) * 2;
+            const dy = (event.clientY / window.innerHeight - 0.5) * 2;
+
+            planets.forEach(planet => {
+                planet.x -= dx * 2;
+                planet.y -= dy * 2;
+            });
+
+            stars.forEach(star => {
+                star.x -= dx * 2;
+                star.y -= dy * 2;
+            });
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const menuBar = document.getElementById('menuBar');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('open');
+        });
+        
+    </script>
+</body>
+</html>
