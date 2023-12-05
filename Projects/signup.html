@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            width: 20%;
+            height: 30%;
+            border-radius: 20px;
+            background-image: linear-gradient(to left top, #d16ba5, #d675b6, #d980c7, #dc8bd8, #dd96e9, #d68fee, #cd89f3, #c384f9, #ad6bf5, #9452f1, #763aee, #4d1feb);
+            backdrop-filter: blur(5.4px);
+            -webkit-backdrop-filter: blur(5.4px);
+            padding: 30px;
+            position: absolute;
+        }
+        @-webkit-keyframes color_change {
+       
+            100% {
+                display: block;
+                opacity: 1;
+            }
+        }
+        @-moz-keyframes color_change {
+            100% {
+                display: block;
+                opacity: 1;
+            }       }
+        @-ms-keyframes color_change {
+            0% {
+                display: none;
+                opacity: 0;
+            }
+        
+            1% {
+                display: block;
+                opacity: 0;
+            }
+        
+            100% {
+                display: block;
+                opacity: 1;
+            }       }
+        @-o-keyframes color_change {
+            0% {
+                display: none;
+                opacity: 0;
+            }
+        
+            1% {
+                display: block;
+                opacity: 0;
+            }
+        
+            100% {
+                display: block;
+                opacity: 1;
+            }       }
+        @keyframes color_change {
+        
+            100% {
+                display: block;
+                opacity: 1;
+            }     }
+        #container:hover{
+            animation: color_change 3s ease infinite alternate;
+            background-image: linear-gradient(to left top, #d16ba5, #d458ae, #d344bc, #cc2fcc, #bf17e0, #b10ee8, #a10bf1, #8c0efa, #7e14f6, #6f19f3, #5f1cef, #4d1feb);
+        }
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+          }
+        body{
+            background: #222831;
+        }
+        .login{
+            border-radius: 18px;
+            width: 90%;
+            height: 90%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: auto;
+            backdrop-filter: blur(2.4px);
+            -webkit-backdrop-filter: blur(2.4px);
+        }
+        .input{
+            width: 98%;
+            height: 45px;
+            background: #F0F0F0;
+            display: flex;
+            margin-bottom: 2%;
+            border-radius: 5px;
+        }
+        /*.input:nth-child(odd){
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        .input:nth-child(even){
+            border-top-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .input:nth-child(even):hover{
+            
+            //animation-name: bounce;
+            //animation-duration: 3.5s, 4s;
+            //animation-iteration-count: 2, 1;
+        }*/
+
+    </style>
+</head>
+<body>
+    <div id="container" class="center">
+        <div class="login center">
+            <br/><br/><br/>
+            <h1>LOGIN</h1>
+            <form action="#" method="post">
+                    <input type="text" class="input fire-animation"/>
+                    <input type="password" class="input fire-animation"/><br/><br/>
+                <span class="hyperlink">Forgot Password ?</span>
+                <button type="button" class="button">Login</button>
+            </form>
+        </div>
+        <div class="signup">
+            <!-- <form action="#" method="post">
+                <div class="input">
+                    <input type="text" class="fire-animation"/>
+                </div>
+                <div class="input">
+                    <input type="password" class="fire-animation"/>
+                </div>
+                <div class="bth">
+                    <button type="button" class="button">Login</button>
+                </div>
+                <span class="hyperlink">Forgot Password ?</span>
+            </form>
+        </div> -->
+    </div>
+</body>
+</html>

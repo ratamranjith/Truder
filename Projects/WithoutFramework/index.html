@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vibrant UI Design with Loading Progress</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, rgb(0, 0, 0), #707070, #2b004e);
+      background-size: 600% 600%;
+      animation: gradientBG 50s ease ;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      color: #fff;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      animation: floatText 3s ease-in-out infinite alternate;
+    }
+
+    /* Progress bar styles */
+    .progress-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #080606;
+        z-index: 9999;
+        display: none;
+      }
+  
+      .progress-bar {
+        height: 100%;
+        background-color: #45fc88;
+        animation: progressBar 2s linear;
+      }
+  
+      @keyframes progressBar {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes floatText {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Menu styles */
+    .menu-icon {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 10000;
+      color: #fff;
+      font-size: 30px;
+    }
+
+    .menu-icon:hover {
+      cursor: pointer;
+      z-index: 10000;
+      color: #b54b00;
+      font-size: 30px;
+    }
+
+
+    .menu {
+      position: fixed;
+      top: 5%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .menu ul li {
+      margin-right: 20px;
+    }
+
+    .menu ul li:last-child {
+      margin-right: 0;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 18px;
+      transition: color 0.3s ease;
+      padding: 10px;
+    }
+
+    .menu ul li a:hover {
+      color: #fcb045;
+    }
+
+    /* Animation for opening menu */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .menu.open {
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .clickMe{
+      cursor: pointer;
+      font-size: 2em;
+      color: #fff;
+      text-align: center;
+      text-shadow: 2px 2px 12px rgba(238, 238, 238, 0.5);
+      animation: floatText 3s ease-in-out infinite;
+    }
+
+    .clickMe:hover{
+    animation: diceRotate 2s; 
+    }
+
+    @keyframes diceRotate {
+      60% {transform: rotate(360deg);}
+    }
+
+    #myCanvas {
+      background-image: url('/Projects/WithoutFramework/images/3d-background.jpg');
+      opacity: 0.5;
+      /* Other CSS properties */
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .page {
+      margin: 2px;
+      background-color: rgb(20, 0, 0);
+      opacity: 0.6;
+      width: 98%;
+      height: 80%;
+      border-radius: 10px;
+      display: none;
+    }
+     </style>
+</head>
+<body>
+    <div class="menu-icon" onclick="toggleMenu()">
+      &#9782; <!-- Hamburger icon -->
+      </div>
+    
+      <div class="menu">
+        <ul>
+          <li><a href="#" onclick="showPage('homePage')">&#127968; &nbsp; Home</a></li>
+          <li><a href="#" onclick="showPage('experiencePage')">&#128435; Experience</a></li>
+          <li><a href="#" onclick="showPage('awardsPage')">&#129511; &nbsp;Awards</a></li>
+          <li><a href="#" onclick="showPage('contactPage')">&#128385; &nbsp; Contact</a></li>
+        </ul>
+      </div>
+    
+
+
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+    
+      <audio id="explosionSound" src="/Projects/WithoutFramework/sounds/rocketFire.mp3" preload="auto"></audio>
+
+
+  <span class="clickMe" onclick="startAnimation()">&#127922;</span>
+  <canvas id="myCanvas">  </canvas>
+
+  <div id="homePage" class="page">
+    <!-- Home page content -->
+    <h1>Welcome to the Home Page!</h1>
+  </div>
+  
+  <div id="experiencePage" class="page" style="display: none;">
+    <!-- Experience page content -->
+    <h1>Experience Page</h1>
+  </div>
+  
+  <div id="awardsPage" class="page" style="display: none;">
+    <!-- Awards page content -->
+    <h1>Awards Page</h1>
+  </div>
+  
+  <div id="contactPage" class="page" style="display: none;">
+    <!-- Contact page content -->
+    <h1>Contact Page</h1>
+  </div>
+
+  <script>
+    const clickMe = document.querySelector('.clickMe');
+    const pages = document.querySelector('.page');
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => {
+        page.style.display = 'none';
+      });
+    
+      // Display the selected page
+      const selectedPage = document.getElementById(pageId);
+      if (selectedPage) {
+        selectedPage.style.display = 'block';
+      }
+    }
+
+    const menu = document.querySelector('.menu');
+    const image = new Image();
+    image.src = '/Projects/WithoutFramework/images/3d-background.jpg';
+    function toggleMenu() {
+      menu.classList.toggle('open');
+      clickMe.style.display = 'none';
+    }
+
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Calculate the scaling factors for the image
+  const scaleX = canvas.width / image.width;
+  const scaleY = canvas.height / image.height;
+  const scale = Math.max(scaleX, scaleY);
+
+  // Calculate the new image dimensions
+  const newWidth = image.width * scale;
+  const newHeight = image.height * scale;
+
+  // Calculate the offset to center the image
+  const offsetX = (canvas.width - newWidth) / 2;
+  const offsetY = (canvas.height - newHeight) / 2;
+
+  // Draw the image to fit the canvas
+  ctx.drawImage(image, offsetX, offsetY, newWidth, newHeight);
+    let particles = [];
+
+    class Particle {
+      constructor(x, y, color, radius, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = radius;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.gravity = 0.6; // Add gravity effect
+        this.friction = 0.09; // Add friction to slow down particles
+        this.life = 800;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.radius -= 0.1; // Reduce size over time
+        this.life -= 1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function createFireworks(x, y) {
+      for (let i = 0; i < 5000; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 75 + 1;
+        const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+        const particle = new Particle(x, y, color, 3, Math.cos(angle) * speed, Math.sin(angle) * speed);
+        particles.push(particle);
+      }
+    }
+
+    const rocketImg = new Image();
+    rocketImg.src = '/Projects/WithoutFramework/images/rocket.png';
+    const explosionSound = document.getElementById('explosionSound');
+    const rocket = {
+      x: canvas.width / 2,
+      y: canvas.height,
+      width: 20,
+      height: 50,
+      exploded: false,
+      explosionSize: 1000,
+      explosionStrength: 500,
+      draw: function() {
+        if (!this.exploded) {
+          ctx.drawImage(rocketImg, this.x - this.width / 2, this.y - this.height, this.width, this.height);
+        }
+      },
+      explode: function() {
+          if (!this.exploded) {
+            createFireworks(this.x, this.y);
+            this.exploded = true;
+          }
+      }
+    };
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Rocket launch and explosion
+      if (!rocket.exploded) {
+        explosionSound.play(); // Play the sound when exploded
+        rocket.draw();
+        rocket.y -= 2.6;
+
+        // Fire and smoke during rocket ascent
+        const fireSize = Math.random() * 5 + 5;
+        const smokeSize = Math.random() * 5 + 1;
+
+        ctx.fillStyle = 'orange';
+        ctx.fillRect(rocket.x - fireSize / 2, rocket.y, fireSize, fireSize * 2);
+
+        ctx.fillStyle = 'rgba(100, 100, 100, 0.3)';
+        ctx.beginPath();
+        ctx.arc(rocket.x, rocket.y, smokeSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (rocket.y + rocket.height < canvas.height / 2) {
+          rocket.explode();
+        }
+      } else {
+        particles.forEach((particle, index) => {
+          if (particle.life > 0) {
+            particle.update();
+            particle.draw();
+          } else {
+            particles.splice(index, 1);
+          }
+        });
+      }
+    }
+
+    function startAnimation() {
+      animate();
+      clickMe.style.display = 'none';
+      menu.classList.toggle('open');
+    }
+  </script>
+  <!-- Add your app content here -->
+</body>
+</html>  <!-- Add your app content here -->
