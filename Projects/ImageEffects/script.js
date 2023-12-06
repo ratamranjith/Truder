@@ -1,4 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+    const saveImageBtn = document.getElementById('saveImageBtn');
+    const uploadInput = document.getElementById('uploadInput');
+    const previewImage = document.getElementById('previewImage');
+    const progressBar = document.getElementById('progressBar');
+
+    uploadInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onloadstart = function () {
+                progressBar.style.width = '0%';
+                saveImageBtn.disabled = true; // Disable the button while loading
+            };
+
+            reader.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    const percentLoaded = (e.loaded / e.total) * 100;
+                    progressBar.style.width = percentLoaded + '%';
+                }
+            };
+
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                progressBar.style.width = '100%';
+                saveImageBtn.disabled = false; // Enable the button after loading
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
     document.getElementById('uploadInput').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const previewImage = document.getElementById('previewImage');
