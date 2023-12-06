@@ -166,7 +166,7 @@
     }
 
     #myCanvas {
-      background-image: url('/Projects/WithoutFramework/images/3d-background.jpg');
+      background-image: url('images/3d-background.jpg');
       opacity: 0.5;
       /* Other CSS properties */
     }
@@ -208,7 +208,7 @@
         <div class="progress-bar"></div>
       </div>
     
-      <audio id="explosionSound" src="/Projects/WithoutFramework/sounds/rocketFire.mp3" preload="auto"></audio>
+      <audio id="explosionSound" src="sounds/rocketFire.mp3" preload="auto"></audio>
 
 
   <span class="clickMe" onclick="startAnimation()">&#127922;</span>
@@ -253,7 +253,7 @@
 
     const menu = document.querySelector('.menu');
     const image = new Image();
-    image.src = '/Projects/WithoutFramework/images/3d-background.jpg';
+    image.src = 'images/3d-background.jpg';
     function toggleMenu() {
       menu.classList.toggle('open');
       clickMe.style.display = 'none';
@@ -321,7 +321,7 @@
     }
 
     const rocketImg = new Image();
-    rocketImg.src = '/Projects/WithoutFramework/images/rocket.png';
+    rocketImg.src = 'images/rocket.png';
     const explosionSound = document.getElementById('explosionSound');
     const rocket = {
       x: canvas.width / 2,
