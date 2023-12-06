@@ -101,3 +101,14 @@ body {
     font-size: 14px;
     color: #777;
 }
+#saveImageBtn{
+    width: 135px;
+    height 10px;
+    border-radius: 8px;
+}
+#saveImageBtn:hover{
+    width: 135px;
+    height 10px;
+    background: #294861;
+    color: #FFFFFF;
+}

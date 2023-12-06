@@ -36,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.width = previewImage.width;
         canvas.height = previewImage.height;
 
-        // Draw the image on the canvas asusual
+        // Draw the image on the canvas
         ctx.drawImage(previewImage, 0, 0, canvas.width, canvas.height);
 
-        // CamanJS -> external framework to make the image effects
+        // Apply user-specified image effect using CamanJS
         Caman(canvas, function () {
-            this.revert(); // It will reset to the original image
+            this.revert(); // Reset to the original image
 
             switch (effectType) {
                 case 'brightness':
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('saturationValue').textContent = value;
                     break;
                 default:
-                    // No effect dude
+                    // Unknown effect type
                     break;
             }
 
@@ -85,4 +85,14 @@ document.addEventListener('DOMContentLoaded', function () {
             applyDynamicEffect(effectType, this.value);
         });
     }
+
+    // Save Image Button
+    document.getElementById('saveImageBtn').addEventListener('click', function () {
+        const canvas = document.getElementById('canvas');
+        const dataURL = canvas.toDataURL('image/jpeg');
+        const a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'filtered_image.jpg';
+        a.click();
+    });
 });
