@@ -36,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.width = previewImage.width;
         canvas.height = previewImage.height;
 
-        // Draw the image on the canvas
+        // Draw the image on the canvas asusual
         ctx.drawImage(previewImage, 0, 0, canvas.width, canvas.height);
 
-        // Apply user-specified image effect using CamanJS
+        // CamanJS -> external framework to make the image effects
         Caman(canvas, function () {
-            this.revert(); // Reset to the original image
+            this.revert(); // It will reset to the original image
 
             switch (effectType) {
                 case 'brightness':
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('saturationValue').textContent = value;
                     break;
                 default:
-                    // Unknown effect type
+                    // No effect dude
                     break;
             }
 
