@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Apply user-specified image effect using CamanJS
+    // CamanJS -> external framework to make the image effects
     function applyDynamicEffect(effectType, value) {
         const canvas = document.getElementById('canvas');
         const previewImage = document.getElementById('previewImage');
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Draw the image on the canvas
         ctx.drawImage(previewImage, 0, 0, canvas.width, canvas.height);
 
-        // Apply user-specified image effect using CamanJS
+        // CamanJS -> external framework to make the image effects
         Caman(canvas, function () {
             this.revert(); // Reset to the original image
 
