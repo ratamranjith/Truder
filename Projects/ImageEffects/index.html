@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Photo Filter Dude</title>
+    <link rel="stylesheet" media="screen" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="upload-container">
+            <label for="uploadInput" class="upload-label">
+                <span class="icon">📷</span> Upload Image
+            </label>
+            <input type="file" id="uploadInput" accept="image/*" class="upload-input">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="preview-container">
+            <img id="previewImage" alt="" class="preview-image">
+        </div>
+
+        <div class="controls">
+            <div class="effect-controls">
+                <label for="brightnessInput">Brightness:</label>
+                <input type="range" id="brightnessInput" min="-100" max="100" step="1" value="0">
+                <span id="brightnessValue">0</span>
+            </div>
+
+            <div class="effect-controls">
+                <label for="contrastInput">Contrast:</label>
+                <input type="range" id="contrastInput" min="-100" max="100" step="1" value="0">
+                <span id="contrastValue">0</span>
+            </div>
+
+            <div class="effect-controls">
+                <label for="sepiaInput">Sepia:</label>
+                <input type="range" id="sepiaInput" min="0" max="100" step="1" value="0">
+                <span id="sepiaValue">0</span>
+            </div>
+
+            <div class="effect-controls">
+                <label for="saturationInput">Saturation:</label>
+                <input type="range" id="saturationInput" min="-100" max="100" step="1" value="0">
+                <span id="saturationValue">0</span>
+            </div>
+        </div>
+    </div>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
