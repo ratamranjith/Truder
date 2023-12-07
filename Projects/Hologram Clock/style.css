@@ -1,0 +1,94 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #111;
+}
+
+.clock {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  margin: 20px;
+}
+
+.hologram {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, 	rgba(2,254,255, 0.2), 	rgba(2,254,255, 1.2) 2px, transparent 5px, transparent 10px);
+  animation: hologramAnimation 5s radial infinite;
+}
+
+.face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.hand {
+  position: absolute;
+  width: 2px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%) rotate(90deg); /* Center the clock hands */
+}
+
+.hour {
+  transform-origin: 20% 5%;
+  width: 6px; /* Adjust the width as needed */
+  height: 25px; /* Adjust the height as needed */
+  border-radius-top-right: 4px;
+  border-radius-top-left: 4px;
+  background:orangered;
+}
+
+.minute {
+  transform-origin: 20% 5%;
+  width: 1.5px; /* Adjust the width as needed */
+  height: 45px; /* Adjust the height as needed */
+  background:cyan;
+}
+
+.second {
+  transform-origin: 20% 5%;
+  width: 0.5px; /* Adjust the width as needed */
+  height: 70px; /* Adjust the height as needed */
+  background: green;
+}
+.round {
+  border-radius: 50%;
+}
+
+.square {
+  border-radius: 10%;
+}
+
+.triangular {
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+@keyframes hologramAnimation {
+  0% { background-position: 0 0; }
+  50% { background-position: 50% 50%; }
+  100% { background-position: 100% 100%; }
+}
+h1{
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 5px rgba(55, 255, 255, 6);
+}
