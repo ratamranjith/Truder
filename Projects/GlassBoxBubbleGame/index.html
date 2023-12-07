@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Aquarium</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: black;
+    }
+
+    canvas {
+      border: 5px solid #058a9b;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="aquariumCanvas" width="1000" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('aquariumCanvas');
+    const ctx = canvas.getContext('2d');
+  
+    const bubbles = [];
+    let burstCount = 0;
+    let timer = 10; // Initial timer duration in seconds
+  
+    const difficultyLevels = {
+      easy: { size: 8, speed: 2 },
+      medium: { size: 6, speed: 4 },
+      hard: { size: 4, speed: 6 },
+    };
+  
+    let currentDifficulty = difficultyLevels.medium;
+  
+    function drawAquarium() {
+      ctx.fillStyle = '#87CEEB';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+      // Draw water surface
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.fillRect(0, canvas.height / 8, canvas.width, canvas.height / 0.5);
+  
+      // Draw bubbles
+      for (let i = bubbles.length - 1; i >= 0; i--) {
+        const bubble = bubbles[i];
+  
+        if (bubble.radius > 0) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+          ctx.beginPath();
+          ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
+          ctx.fill();
+  
+          bubble.y -= bubble.speed;
+  
+          // Remove bubbles when they reach the top
+          if (bubble.y + bubble.radius < 0) {
+            bubbles.splice(i, 1);
+          }
+        }
+      }
+  
+      // Display burst count
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '20px Arial';
+      ctx.fillText(`Burst Count: ${burstCount}`, 10, canvas.height - 30);
+  
+      // Display timer with one decimal place
+      ctx.fillText(`Time: ${timer.toFixed(1)}s`, 10, canvas.height - 10);
+    }
+  
+    function createBubble() {
+      const x = Math.random() * canvas.width;
+      const radius = Math.random() * currentDifficulty.size + 5;
+      const speed = Math.random() * currentDifficulty.speed + 1;
+  
+      return { x, y: canvas.height + Math.random() * 100, radius, speed };
+    }
+  
+    function update() {
+      drawAquarium();
+  
+      // Update timer
+      if (timer > 0) {
+        timer -= 1 / 60; // 60 frames per second
+      } else {
+        // Game Over
+        timer = 0;
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '40px Arial';
+        ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2);
+        return;
+      }
+  
+      requestAnimationFrame(update);
+    }
+  
+    function burstBubble(bubble) {
+      if (bubble.radius > 0) {
+        bubble.radius = 0; // Pop the bubble
+        burstCount++;
+      }
+    }
+  
+    function handleMouseMove(event) {
+      const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+      const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+  
+      for (let i = 0; i < bubbles.length; i++) {
+        const bubble = bubbles[i];
+        const distance = Math.sqrt((mouseX - bubble.x) ** 2 + (mouseY - bubble.y) ** 2);
+  
+        if (distance < bubble.radius) {
+          burstBubble(bubble);
+          break;
+        }
+      }
+    }
+  
+    function changeDifficulty(level) {
+      currentDifficulty = difficultyLevels[level];
+  
+      // Reset bubbles with new difficulty
+      bubbles.length = 0;
+      for (let i = 0; i < 100; i++) {
+        bubbles.push(createBubble());
+      }
+    }
+  
+    function retry() {
+      burstCount = 0;
+      timer = 10; // Reset timer
+      // Reset bubbles with current difficulty
+      bubbles.length = 0;
+      for (let i = 0; i < 30; i++) {
+        bubbles.push(createBubble());
+      }
+    }
+  
+    function init() {
+      // Create initial bubbles
+      for (let i = 0; i < 100; i++) {
+        bubbles.push(createBubble());
+      }
+      canvas.addEventListener('click', (event) => burstBubble(event));
+      canvas.addEventListener('mousemove', handleMouseMove);
+  
+      // Add difficulty buttons
+      for (const level in difficultyLevels) {
+        const button = document.createElement('button');
+        button.textContent = level;
+        button.addEventListener('click', () => changeDifficulty(level));
+        document.body.appendChild(button);
+      }
+  
+      // Add retry button
+      const retryButton = document.createElement('button');
+      retryButton.textContent = 'Retry';
+      retryButton.addEventListener('click', retry);
+      document.body.appendChild(retryButton);
+  
+      update();
+    }
+  
+    init();
+  </script>
+  
+</body>
+</html>
