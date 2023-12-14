@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .wifi-icon {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      background-color: #6A5885;
+      border-radius: 50%;
+      margin: 20px auto;
+    }
+
+    .curve {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 110px;
+      border-radius: 0 0 20px 20px;
+      border: 2px solid #6A5885;
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wifi-icon">
+    <div class="curve"></div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Calculator using Three.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; }
+        canvas { width: 10%; height: 10%; display: block; }
+        #love-calculator {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="love-calculator">
+        <form id="love-form">
+            <input type="text" id="name1" placeholder="Enter Name 1">
+            <input type="text" id="name2" placeholder="Enter Name 2">
+            <button type="button" onclick="calculateLove()">Calculate</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(200, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a heart-shaped geometry
+        const heartGeometry = new THREE.Shape();
+        heartGeometry.moveTo(25, 25);
+        heartGeometry.bezierCurveTo(25, 25, 20, 0, 0, 0);
+        heartGeometry.bezierCurveTo(-30, 0, -30, 35, -30, 35);
+        heartGeometry.bezierCurveTo(-30, 55, -10, 77, 25, 95);
+        heartGeometry.bezierCurveTo(60, 77, 80, 55, 80, 35);
+        heartGeometry.bezierCurveTo(80, 35, 80, 0, 50, 0);
+        heartGeometry.bezierCurveTo(35, 0, 25, 25, 25, 25);
+
+        const heartShape = new THREE.ExtrudeGeometry(heartGeometry, {
+            depth: 1,
+            bevelEnabled: true,
+            bevelThickness: 1,
+            bevelSize: 1,
+            bevelSegments: 1
+        });
+
+        const heartMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        const heartObject = new THREE.Mesh(heartShape, heartMaterial);
+        scene.add(heartObject);
+
+        // Set initial position of the heart object
+        heartObject.position.set(0, -50, -50);
+
+        function calculateLove() {
+            const name1 = document.getElementById('name1').value.trim().toLowerCase();
+            const name2 = document.getElementById('name2').value.trim().toLowerCase();
+        
+            if (name1 !== '' && name2 !== '') {
+                // Calculate love percentage based on the names
+                const lovePercentage = calculatePercentage(name1, name2);
+        
+                // Display result
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `<p>Love Percentage: ${lovePercentage}%</p>`;
+        
+                // Animate the scene based on love percentage
+                animateLove(lovePercentage);
+            } else {
+                alert('Please enter names for both fields.');
+            }
+        }
+        
+        function calculatePercentage(name1, name2) {
+            // Simple algorithm: Add ASCII values of characters in the names
+            let total = 0;
+        
+            for (let i = 0; i < name1.length; i++) {
+                total += name1.charCodeAt(i);
+            }
+        
+            for (let i = 0; i < name2.length; i++) {
+                total += name2.charCodeAt(i);
+            }
+        
+            // Calculate a percentage based on the total (you can modify this formula)
+            const percentage = (total % 101); // Modulo 101 to keep it within 0-100 range
+        
+            return percentage;
+        }
+        
+
+        function animateLove(percentage) {
+            // Animate the scale of the heart based on love percentage
+            const heartScale = percentage / 100;
+            heartObject.scale.set(heartScale, heartScale, heartScale);
+
+            // Change the color of the heart based on the love percentage
+            if (percentage > 50) {
+                heartObject.material.color.set(0xff0000); // Red color for intense love
+            } else {
+                heartObject.material.color.set(0x00ff00); // Green color for lower love
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

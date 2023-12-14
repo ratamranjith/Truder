@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .canvas-container {
+    border: 1px solid #000000;
+  }
+  
+  canvas {
+    cursor: pointer;
+    border: 1px solid #000;
+  }
