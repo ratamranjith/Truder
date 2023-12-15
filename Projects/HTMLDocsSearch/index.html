@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Elements and Usage</title>
+    <style>
+        /* Add your CSS styles for the application layout here */
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header content (optional) -->
+        <h1>HTML Elements and Usage</h1>
+    </header>
+
+    <main>
+        <!-- Search bar -->
+        <input type="text" id="searchInput" placeholder="Search for HTML elements...">
+        <button onclick="searchElements()">Search</button>
+
+        <!-- Display area for fetched HTML element information -->
+        <div id="elementInfo">
+            <!-- Data fetched from API will be displayed here -->
+        </div>
+    </main>
+
+    <script>
+        async function searchElements() {
+            const searchValue = document.getElementById('searchInput').value;
+        
+            try {
+                const response = await fetch(`API_ENDPOINT?search=${searchValue}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new TypeError('Oops, we received unexpected data type.');
+                }
+        
+                const data = await response.json();
+                displayElementInfo(data);
+            } catch (error) {
+                console.error('Error fetching or parsing data:', error);
+                // Handle the error, display a message to the user, or try different search
+            }
+        }
+        
+        function displayElementInfo(data) {
+            const elementInfoDiv = document.getElementById('elementInfo');
+
+            // Clear previous content
+            elementInfoDiv.innerHTML = '';
+
+            // Process and display the fetched data in elementInfoDiv
+            // Loop through the data and create HTML elements to display information
+            data.forEach(element => {
+                const elementDiv = document.createElement('div');
+                elementDiv.innerHTML = `
+                    <h2>${element.name}</h2>
+                    <p>Uses: ${element.uses}</p>
+                    <p>Usage: ${element.usage}</p>
+                `;
+                elementInfoDiv.appendChild(elementDiv);
+            });
+        }
+    </script>
+</body>
+</html>
