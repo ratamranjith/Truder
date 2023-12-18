@@ -1,0 +1,44 @@
+body {
+    background: hsla(252, 40%, 29%, 1);
+    background: linear-gradient(90deg, hsla(252, 40%, 29%, 1) 100%, hsla(270, 77%, 71%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(252, 40%, 29%, 1) 100%, hsla(270, 77%, 71%, 1) 100%);   
+    background: -webkit-linear-gradient(90deg, hsla(252, 40%, 29%, 1) 100%, hsla(270, 77%, 71%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#392D69", endColorstr="#B57BEE", GradientType=1 );
+}
+
+.container {
+    border-radius: 12px;
+    width: 80rem;
+    height: 35rem;
+    background-color:azure;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 40%);
+    align-items: center;
+}
+
+.card {
+    background: hsla(171, 87%, 67%, 1);
+    background: linear-gradient(225deg, hsla(171, 87%, 67%, 1) 0%, hsla(236, 100%, 72%, 1) 100%);    
+    background: -moz-linear-gradient(225deg, hsla(171, 87%, 67%, 1) 0%, hsla(236, 100%, 72%, 1) 100%);    
+    background: -webkit-linear-gradient(225deg, hsla(171, 87%, 67%, 1) 0%, hsla(236, 100%, 72%, 1) 100%);    
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#61F4DE", endColorstr="#6E78FF", GradientType=1 );
+    width: 15%;
+    height: 35%;
+    display: flexbox;
+    border-radius: 1vh;
+    opacity: 0.5;
+    filter: blur(#61F4DE);
+    margin: 6px;
+    
+    float: left;
+}
+#card1:hover{
+    opacity: 1;
+    transition: 0.5s ease-in-out;
+    translate: 1px 1px 50px;
+    transform-style: preserve-3d;
+    transform: rotateZ(90deg);
+    transition:cubic-bezier(0.95, 0.05, 0.795, 0.035) 2s;
+}
