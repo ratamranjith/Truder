@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animating SVG with Three.js</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        let headRadius = 25;
+        let eyesSize = 2;
+
+        // Head
+        const headGeometry = new THREE.CircleGeometry(headRadius, 32);
+        const headMaterial = new THREE.MeshBasicMaterial({ color: 0xFF5600 });
+        const head = new THREE.Mesh(headGeometry, headMaterial);
+        head.position.set(5.835, 55.802, 0);
+        scene.add(head);
+
+        // Eyes
+        const eyeGeometry = new THREE.CircleGeometry(eyesSize, 32);
+        const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+
+        const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+        leftEye.position.set(0.835 - 5, 60.802, 1);
+        scene.add(leftEye);
+
+        const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+        rightEye.position.set(0.835 + 15, 60.802, 1);
+        scene.add(rightEye);
+
+        // Body
+        const bodyShape = new THREE.Shape();
+        bodyShape.moveTo(0, 0);
+        bodyShape.lineTo(0, 50);
+        bodyShape.lineTo(50, 50);
+        bodyShape.lineTo(50, 0);
+        bodyShape.lineTo(0, 0);
+
+        const bodyGeometry = new THREE.ShapeGeometry(bodyShape);
+        const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0xE26310 });
+        const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+        body.position.set(-20, -30, 0);
+        scene.add(body);
+
+        // Left Leg
+        const leftLegGeometry = new THREE.BoxGeometry(10, 30, 10);
+        const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0xE26310 });
+        const leftLeg = new THREE.Mesh(leftLegGeometry, leftLegMaterial);
+        leftLeg.position.set(-30, -25, 0);
+        scene.add(leftLeg);
+
+        // Right Leg
+        const rightLegGeometry = new THREE.BoxGeometry(10, 30, 10);
+        const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0xE26310 });
+        const rightLeg = new THREE.Mesh(rightLegGeometry, rightLegMaterial);
+        rightLeg.position.set(40, -25, 0);
+        scene.add(rightLeg);
+
+        camera.position.z = 500;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+
+</body>
+</html>

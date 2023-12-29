@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Website</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu">
+        <a onclick="changePage('home')">Home</a>
+        <a onclick="changePage('about')">About</a>
+        <a onclick="changePage('portfolio')">Portfolio</a>
+        <a onclick="changePage('services')">Services</a>
+        <a onclick="changePage('contact')">Contact</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const geometry = new THREE.RingGeometry(1, 5, 32);
+
+        const materials = [
+            new THREE.MeshBasicMaterial({ color: 0x5600F0, side: THREE.DoubleSide })
+        ];
+
+        const cubes = materials.map(material => new THREE.Mesh(geometry, material));
+        
+        cubes.forEach(cube => scene.add(cube));
+
+        camera.position.z = 35;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            cubes.forEach(cube => {
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        function changePage(page) {
+            // You can add more sophisticated transition effects here
+            alert(`Navigating to ${page} page.`);
+        }
+    </script>
+</body>
+</html>

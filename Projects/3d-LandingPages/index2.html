@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Robot</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Robot properties
+        let x = canvas.width / 2;
+        let y = canvas.height / 2;
+        let angle = 0;
+
+        // Animation loop
+        function animate() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw robot
+            drawRobot();
+
+            // Update robot position and angle
+            x += Math.cos(angle) * 2;
+            y += Math.sin(angle) * 2;
+            angle += 0.05;
+
+            // Request next animation frame
+            requestAnimationFrame(animate);
+        }
+
+        // Draw robot function
+        function drawRobot() {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // Draw head
+            ctx.fillStyle = 'gray';
+            ctx.fillRect(-20, -30, 40, 30);
+
+            // Draw eyes
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(-10, -20, 8, 8);
+            ctx.fillRect(2, -20, 8, 8);
+
+            // Draw body
+            ctx.fillStyle = 'red';
+            ctx.fillRect(-25, 0, 50, 80);
+
+            // Draw arms
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(-40, 0, 15, 60);
+            ctx.fillRect(25, 0, 15, 60);
+
+            // Draw legs
+            ctx.fillStyle = 'green';
+            ctx.fillRect(-20, 80, 15, 50);
+            ctx.fillRect(5, 80, 15, 50);
+
+            ctx.restore();
+        }
+
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>

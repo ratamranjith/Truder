@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Website</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu">
+        <a onclick="changePage('home')">Home</a>
+        <a onclick="changePage('about')">About</a>
+        <a onclick="changePage('portfolio')">Portfolio</a>
+        <a onclick="changePage('services')">Services</a>
+        <a onclick="changePage('contact')">Contact</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 20000);
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const loader = new THREE.TextureLoader();
+
+        // Load your SVG file as a texture
+        loader.load('robot.svg', (texture) => {
+            const geometry = new THREE.PlaneGeometry(10, 10);
+            const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+            const plane = new THREE.Mesh(geometry, material);
+            scene.add(plane);
+        });
+
+        camera.position.z = 35;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+
+
+        animate();
+
+        function changePage(page) {
+            // You can add more sophisticated transition effects here
+            alert(`Navigating to ${page} page.`);
+        }
+    </script>
+</body>
+</html>
