@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS - Pseudo Elements </title>
+    <style>
+        :root{
+            background-color: black;
+        }
+        body{
+            background: wheat;
+        }
+        .card:nth-child(2n - 1){
+            background: violet;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            margin: 2px;
+            float: left;
+        }
+        .card::before{
+            content: "this is a  and ";
+        }
+        .card::after{
+            content: "and this is a sample";
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+        <div class="card">Card</div>
+    </div>
+</body>
+</html>
