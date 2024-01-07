@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Box Model</title>
+    <style>
+        .box{
+            width: 120px;
+            height: 120px;
+            background: violet;
+            display: block;
+            float: left;
+            margin: 2px;
+            border: 10px solid yellowgreen;
+            border-radius: 10px;
+        }
+        @keyframes boxAnimate{
+            from {padding-left: 0px;}
+            to {padding-left: 56px;}
+        }
+        .box:hover{
+            animation: boxAnimate 3s;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="box">Box1</div>
+        <div class="box">Box2</div>
+        <div class="box">Box3</div>
+        <div class="box">Box4</div>
+        <div class="box">Box5</div>
+    </div>
+</body>
+</html>
