@@ -13,19 +13,55 @@
             float: left;
             margin: 2px;
             border: 10px solid yellowgreen;
-            border-radius: 10px;
+            border-radius: 200px;
+            text-align: center;
+            text-decoration: dotted;
+            font-weight: bolder;
+            padding-top: 100px;
         }
+        .box:nth-child(2n){
+            animation: boxAnimate 2s;
+        }
+        .box:nth-child(2n-1){
+            animation: boxAnimate1 2s;
+        }
+        
         @keyframes boxAnimate{
             from {padding-left: 0px;}
-            to {padding-left: 56px;}
+            to {padding-left: 5px; }
+        }
+        @keyframes boxAnimate1{
+            from {padding-left: 0px;}
+            to {padding-left: 50px;}
         }
         .box:hover{
-            animation: boxAnimate 3s;
+            padding: 50px;
+            background-color: yellowgreen;
         }
     </style>
 </head>
 <body>
     <div>
+        <div class="box">Box1</div>
+        <div class="box">Box2</div>
+        <div class="box">Box3</div>
+        <div class="box">Box4</div>
+        <div class="box">Box5</div>
+        <div class="box">Box1</div>
+        <div class="box">Box2</div>
+        <div class="box">Box3</div>
+        <div class="box">Box4</div>
+        <div class="box">Box5</div>
+        <div class="box">Box1</div>
+        <div class="box">Box2</div>
+        <div class="box">Box3</div>
+        <div class="box">Box4</div>
+        <div class="box">Box5</div>
+        <div class="box">Box1</div>
+        <div class="box">Box2</div>
+        <div class="box">Box3</div>
+        <div class="box">Box4</div>
+        <div class="box">Box5</div>
         <div class="box">Box1</div>
         <div class="box">Box2</div>
         <div class="box">Box3</div>
