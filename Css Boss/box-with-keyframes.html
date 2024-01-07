@@ -12,17 +12,18 @@
             display: block;
             float: left;
             margin: 2px;
-            border: 10px solid yellowgreen;
-            border-radius: 200px;
+            border: 10px solid springgreen;
             text-align: center;
             text-decoration: dotted;
             font-weight: bolder;
             padding-top: 50px;
         }
         .box:nth-child(2n){
+            border-radius: 20px;
             animation: boxAnimate 2s;
         }
         .box:nth-child(2n-1){
+            border-radius: 200px;
             animation: boxAnimate1 2s;
         }
         
@@ -35,7 +36,6 @@
             to {padding-left: 50px;}
         }
         .box:hover{
-            padding: 50px;
             background-color: teal;
             border: 10px solid tomato;
             color: white;
