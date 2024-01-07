@@ -11,6 +11,10 @@
         body{
             background: wheat;
         }
+        .card{
+            border-radius: 50px;
+            background: white;
+        }
         .card:nth-child(2n - 1){
             background: violet;
             width: 200px;
@@ -25,7 +29,9 @@
         .card::after{
             content: "and this is a sample";
         }
-
+        .card:hover{
+            background-color: cadetblue;
+        }
     </style>
 </head>
 <body>
