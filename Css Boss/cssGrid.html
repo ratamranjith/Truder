@@ -12,6 +12,10 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
             row-gap: 10px;
+            grid-template-areas: "nav-header nav-header nav-header nav-header"
+                                 "box box box box"
+                                 "box box box box"
+                                 "footer footer footer footer";
         }
         .box{
             width: 20vh;
@@ -33,10 +37,30 @@
             from{ padding: 5px; background-color: yellow;}
             to{padding: 0px;}
         }
+        .footer{
+            display: grid;
+            grid-area: footer;
+            background-color: white;
+            padding: 20px;
+        }
+        .header{
+            grid-area: nav-header;
+            background-color: white;
+            padding: 20px;
+        }
+        .side-nav{
+            grid-area: nav-side;
+            background-color: white;
+            padding: 20px;
+        }
+        .header,.footer{
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="header">Header</div>
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
@@ -45,6 +69,7 @@
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
+        <div class="footer">Footer</div>
     </div>
 </body>
 </html>
