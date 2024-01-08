@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid</title>
+    <style>
+        :root{
+            background: rebeccapurple;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            row-gap: 10px;
+        }
+        .box{
+            width: 20vh;
+            height: 20vh;
+            background: turquoise;
+            border-radius: 20px;
+        }
+        .box:nth-child(2n){
+            animation: box1 2s linear;
+        }
+        .box:nth-child(2n-1){
+            animation: box2 2s linear;
+        }
+        @keyframes box1 {
+            from{ padding: 5px; background-color: wheat;}
+            to{padding: 0px;}
+        }
+        @keyframes box2 {
+            from{ padding: 5px; background-color: yellow;}
+            to{padding: 0px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</body>
+</html>
