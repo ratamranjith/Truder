@@ -21,7 +21,7 @@
         }
         .box:nth-child(2n-1){
             background-color: teal;
-            animation: boxRound 5s alternate;
+            animation: boxRound 5s cubic-bezier(0.175, 0.885, 0.32, 7.275);
         }
         @keyframes boxRound {
             from{border-radius: 50px; transform: rotate(360deg);}
