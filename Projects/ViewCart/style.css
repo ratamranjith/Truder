@@ -1,0 +1,55 @@
+:root{
+    background-color: silver;
+}
+.container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-areas: "header header header header"
+                         "items items order payment"
+                         
+                         "footer footer footer footer";
+
+                         width: 100%;
+                         height: 100%;
+                         gap: 5px;
+}
+.header{
+    width: 100%;
+    height: 40px;
+    background: rgb(87, 10, 0);
+    align-content: center;
+    border-radius: 5px;
+    text-align: center;
+    color: antiquewhite;
+    font-weight: bolder;
+    font-size: larger;
+    grid-area: header;
+}
+.items{
+    background-color: antiquewhite;
+    grid-area: items;
+}
+.orders{
+    background-color: rgb(19, 90, 255);
+    grid-area: order;
+}
+.payment{
+    background-color: rgb(235, 133, 0);
+    grid-area: payment;
+}
+.items,.orders,.payment{
+    width: 100%;
+    height: 250px;
+}
+.footer{
+    width: 100%;
+    height: 40px;
+    background: rgb(87, 10, 0);
+    align-content: center;
+    border-radius: 5px;
+    text-align: center;
+    color: antiquewhite;
+    font-weight: bolder;
+    font-size: larger;
+    grid-area: footer;
+}

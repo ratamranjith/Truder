@@ -1,18 +1,65 @@
-/* General styles */
+header {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+    background-color: rgb(0, 0, 0);
+}
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
     padding: 0;
 }
 
-header {
-    background-color: #f8f9fa; /* Light grey */
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
 }
 
-main {
-    background-color: #ffffff; /* White */
+nav ul li a:hover {
+    text-decoration: underline;
 }
-
-footer {
-    background-color: #343a40; /* Dark grey */
+.parallax {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 255, 0.3), rgba(0, 0, 255, 0.5)), url('/Projects/LandingPages/images/clouds.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh; /* Adjust the height of your parallax section */}
+.parallax1 {
+    background-image: linear-gradient(to bottom, rgba(5, 5, 34, 0.3), rgba(0, 89, 255, 0.5)), url('/Projects/LandingPages/images/planet1.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh; /* Adjust the height of your parallax section */
+}
+.parallax2 {
+    background-image: linear-gradient(to bottom, rgba(66, 253, 91, 0.3), rgba(79, 79, 229, 0.911)), url('/Projects/LandingPages/images/planet2.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh; /* Adjust the height of your parallax section */
+}
+.parallax3 {
+    background-image: linear-gradient(to bottom, rgba(3, 3, 5, 0.3), rgba(0, 0, 99, 0.5)), url('/Projects/LandingPages/images/planet3.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh; /* Adjust the height of your parallax section */
+}
+.parallax4 {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5)), url('/Projects/LandingPages/images/land.jpeg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh; /* Adjust the height of your parallax section */
 }
