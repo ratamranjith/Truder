@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Name Combiner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #combiner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #combiner-output {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="combiner-container">
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name">
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name">
+
+        <button onclick="combineNames()">Combine Names</button>
+
+        <table id="combiner-output">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function combineNames() {
+            var firstName = document.getElementById('first-name').value;
+            var lastName = document.getElementById('last-name').value;
+        
+            var combinations = [];
+        
+            // Combinations for the first name and the last name
+            for (var i = 0; i < firstName.length; i++) {
+                combinations.push(firstName.charAt(i) + lastName);
+            }
+        
+            combinations.push(firstName + lastName.charAt(0));
+        
+            for (var i = 0; i < lastName.length; i++) {
+                combinations.push(firstName + lastName.charAt(i));
+            }
+        
+            // Permutations for the characters of the first name and the last name
+            var permutations = [];
+            for (var i = 0; i < firstName.length; i++) {
+                for (var j = 0; j < lastName.length; j++) {
+                    permutations.push(firstName.charAt(i) + lastName.charAt(j));
+                }
+            }
+        
+            for (var i = 0; i < lastName.length; i++) {
+                for (var j = 0; j < firstName.length; j++) {
+                    permutations.push(lastName.charAt(i) + firstName.charAt(j));
+                }
+            }
+        
+            combinations = combinations.concat(permutations);
+        
+            var tableBody = document.getElementById('combiner-output').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+        
+            combinations.forEach(function(combination) {
+                var row = document.createElement('tr');
+                var cell = document.createElement('td');
+                cell.textContent = combination;
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
