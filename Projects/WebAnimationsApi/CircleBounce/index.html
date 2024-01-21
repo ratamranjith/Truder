@@ -6,7 +6,7 @@
     <title>Using Web Animations API</title>
     <style>
         body {
-            background-color: darkslategrey;
+            background-color: rgb(0, 0, 0);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -14,8 +14,8 @@
             margin: 0;
         }
         .ball {
-            width: 50px;
-            height: 50px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             position: absolute;
         }
@@ -32,36 +32,104 @@
 
         function getRandomColor() {
             // Generate a random hex color
-            return '#' + Math.floor(Math.random()*16777215).toString(16);
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
         }
 
-        function bounce(element, X, Y, color) {
+        function isOverlap(newX, newY, existingBalls) {
+            // Check if the new position overlaps with existing balls
+            for (const ball of existingBalls) {
+                const rect1 = { x: newX, y: newY, width: 20, height: 20 };
+                const rect2 = ball.getBoundingClientRect();
+
+                if (
+                    rect1.x < rect2.x + rect2.width &&
+                    rect1.x + rect1.width > rect2.x &&
+                    rect1.y < rect2.y + rect2.height &&
+                    rect1.y + rect1.height > rect2.y
+                ) {
+                    return true; // Overlap detected
+                }
+            }
+            return false; // No overlap
+        }
+
+        function handleCollisions(balls) {
+            for (let i = 0; i < balls.length; i++) {
+                for (let j = i + 1; j < balls.length; j++) {
+                    const ball1 = balls[i].getBoundingClientRect();
+                    const ball2 = balls[j].getBoundingClientRect();
+
+                    const dx = ball1.x - ball2.x;
+                    const dy = ball1.y - ball2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 20) {
+                        // Simple collision response: swap velocities
+                        const vx1 = parseFloat(balls[i].style.animationDirection);
+                        const vy1 = parseFloat(balls[i].style.animationPlayState);
+                        const vx2 = parseFloat(balls[j].style.animationDirection);
+                        const vy2 = parseFloat(balls[j].style.animationPlayState);
+
+                        balls[i].style.animationDirection = vx2;
+                        balls[i].style.animationPlayState = vy2;
+                        balls[j].style.animationDirection = vx1;
+                        balls[j].style.animationPlayState = vy1;
+                    }
+                }
+            }
+        }
+
+        function bounce(element) {
+            let randomX, randomY;
+            do {
+                randomX = Math.floor(Math.random() * (window.innerWidth - 20));
+                randomY = Math.floor(Math.random() * (window.innerHeight - 20));
+            } while (isOverlap(randomX, randomY, balls));
+
+            let color = getRandomColor();
+
+            element.style.left = randomX + 'px';
+            element.style.top = randomY + 'px';
+
+            // Set initial random velocities
+            const vx = (Math.random() - 0.5) * 2;
+            const vy = (Math.random() - 0.5) * 2;
+
             element.animate([
                 {
-                    transform: `translate(${X}px, ${Y}px)`,
-                    backgroundColor: color
+                    transform: 'translate(0, 0)',
+                    backgroundColor: color,
                 },
                 {
-                    transform: 'translate(0, 0)',
+                    transform: `translate(${vx * 100}px, ${vy * 100}px)`,
                 }
             ],
             {
-                duration: 4000,
+                duration: 2000,
                 iterations: Infinity,
                 direction: 'alternate',
-                easing: "ease-in-out"
+                easing: 'ease-in-out',
+                fill: 'both'
             });
+
+            // Attach velocities to the element for collision handling
+            element.style.animationDirection = String(vx);
+            element.style.animationPlayState = String(vy);
         }
 
-        let numberOfBalls = 50;
+        let numberOfBalls = 100;
+        let balls = [];
 
         for (let i = 0; i < numberOfBalls; i++) {
             let ball = createBall();
-            let randomX = Math.floor(Math.random() * window.innerWidth);
-            let randomY = Math.floor(Math.random() * window.innerHeight);
-            let color = getRandomColor();
-            bounce(ball, randomX * i, randomY, color);
+            balls.push(ball);
+            bounce(ball);
         }
+
+        // Interval to check and handle collisions
+        setInterval(function() {
+            handleCollisions(balls);
+        }, 50);
     </script>
 </body>
 </html>
