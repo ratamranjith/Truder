@@ -16,7 +16,7 @@
         .particle {
             width: 5px;
             height: 5px;
-            border-radius: 100%;
+            border-radius: 50%;
             position: absolute;
         }
     </style>
@@ -38,8 +38,8 @@
         function bounce(particle) {
             let randomX, randomY;
             do {
-                randomX = Math.floor(Math.random() * (window.innerWidth - 5));
-                randomY = Math.floor(Math.random() * (window.innerHeight - 5));
+                randomX = Math.floor(Math.random() * (window.innerWidth - 20));
+                randomY = Math.floor(Math.random() * (window.innerHeight - 20));
             } while (isOverlap(randomX, randomY, particles));
 
             let color = getRandomColor();
@@ -57,20 +57,11 @@
                     backgroundColor: color,
                 },
                 {
-                    transform: `translate(${vx * 5}px, ${vy * 6}px)`,
-                },
-                {
-                    transform: `translate(${vx * 10}px, ${vy * 10}px)`,
-                },
-                {
-                    transform: `translate(${vx * 1}px, ${vy * 2}px)`,
-                },
-                {
-                    transform: `translate(${vx * 20}px, ${vy * .5}px)`,
+                    transform: `translate(${vx * 100}px, ${vy * 100}px)`,
                 }
             ],
             {
-                duration: 5000,
+                duration: 2000,
                 iterations: Infinity,
                 direction: 'alternate',
                 easing: 'ease-in-out',
@@ -80,6 +71,22 @@
             // Attach velocities to the particle for collision handling
             particle.vx = vx;
             particle.vy = vy;
+
+            // Add mouseover event listener
+            particle.addEventListener('mouseover', function() {
+                // Increase size and stop animation on mouseover
+                particle.style.width = '30px';
+                particle.style.height = '30px';
+                particle.style.animation = 'none';
+            });
+
+            // Add mouseout event listener
+            particle.addEventListener('mouseout', function() {
+                // Restore size and resume animation on mouseout
+                particle.style.width = '50px';
+                particle.style.height = '50px';
+                particle.style.animation = 'bounceAnimation';
+            });
         }
 
         function isOverlap(newX, newY, existingParticles) {
@@ -110,7 +117,7 @@
                     const dy = particle1.offsetTop - particle2.offsetTop;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 2000) {
+                    if (distance < 20) {
                         // Collision response: reverse velocities with increased speed
                         const speedMultiplier = 2;
                         
@@ -124,7 +131,7 @@
             }
         }
 
-        let numberOfParticles = 100;
+        let numberOfParticles = 200;
         let particles = [];
 
         for (let i = 0; i < numberOfParticles; i++) {
@@ -136,7 +143,7 @@
         // Interval to check and handle collisions
         setInterval(function() {
             handleCollisions(particles);
-        }, 50);
+        }, 100);
     </script>
 </body>
 </html>
