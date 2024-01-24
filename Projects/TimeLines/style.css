@@ -7,7 +7,7 @@ html {
   
   /* Set a background color */
   body {
-    background-color: #041a48;
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
     background-repeat: no-repeat;
     font-family: Helvetica, sans-serif;
   }
@@ -148,7 +148,7 @@ html {
   /* The actual content */
   .content {
     padding: 20px 10px;
-    background: linear-gradient(rgb(216, 216, 216), 60%,rgba(83, 0, 178, 0.064));
+    background: linear-gradient(rgb(216, 216, 216), 60%,rgba(105, 0, 225, 0.064));
     position: relative;
     border-radius: 6px;
   }
