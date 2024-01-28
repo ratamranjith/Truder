@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+.color-picker {
+  margin-bottom: 20px;
+}
+
+.color-combinations {
+  display: grid;
+  grid-template-columns: auto auto;
+  display: inline-grid;
+  padding: 10px;
+}
+
+.color-boxes {
+  margin-right: 20px;
+}
+
+.color-box {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  float: left;
+}
+
+.css-code {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: wheat;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.gradient-colors {
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .color-combinations {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .color-boxes {
+    margin-right: 0;
+  }
+
+  .css-code {
+    margin-left: 0;
+  }
+}
+
+/* Custom CSS for gradient */
+.gradient-colors {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.gradient-colors {
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00d4ff",GradientType=1);
+}
+
